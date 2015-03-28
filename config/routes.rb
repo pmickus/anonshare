@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "folders#index"
   resources :folders, param: :token do
     resources :contents do
       resources :comments
