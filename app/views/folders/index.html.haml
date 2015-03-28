@@ -8,15 +8,17 @@
         %th Name
         %th Filesize limit
         %th Capacity
-        %th Duration
         %th Expires at
     %tbody
       - @folders.each do |folder|
         %tr
           %td= link_to folder.token, folder_path(folder.token)
           %td= folder.name
-          %td= folder.filesize_limit
-          %td= folder.capacity
-          %td= folder.duration
+          %td
+            = folder.filesize_limit
+            MB
+          %td
+            = folder.capacity
+            GB
           %td= folder.expires_at
   = link_to 'New Folder', new_folder_path, class: "btn btn-primary"
