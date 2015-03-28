@@ -1,12 +1,31 @@
 .container
-  - if @content.file_type == "video"
-    = video_tag(@content.file.url, controls: true, autobuffer: true)
-  - else 
-    = image_tag(@content.file.url)
-  %br/
-  = render "comments/comments", comments: @content.comments
-  = link_to 'New Comment', new_folder_content_comment_path(content_id: @content.id), class: 'btn btn-primary'
-  = link_to 'Back', folder_path(@content.folder), class: 'btn btn-default'
+  .row
+    .h1 
+      = @content.file_file_name
+    %table.table.table-bordered.table-striped.table-condensed
+      %tr
+        %td 
+          Download Link:
+        %td
+          = link_to @content.file.url
+      %tr
+        %td 
+          Size:
+        %td
+          = @content.file_file_size.to_f / 1_000_000 
+          MB  
+  .row
+    - if @content.file_type == "video"
+      .embed-responsive-item
+        .embed-responsive.embed-responsive-16by9
+          = video_tag(@content.file.url, controls: true, autobuffer: true)
+    - else 
+      = image_tag(@content.file.url, class: "img-responsive imageClip")
+  .row
+    %br/
+    = render "comments/comments", comments: @content.comments
+    = link_to 'New Comment', new_folder_content_comment_path(content_id: @content.id), class: 'btn btn-primary'
+    = link_to 'Back', folder_path(@content.folder), class: 'btn btn-default'
 
   %br/
   %br/
