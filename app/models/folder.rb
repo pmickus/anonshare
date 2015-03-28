@@ -26,6 +26,14 @@ class Folder < ActiveRecord::Base
   def total_size
     contents.sum(:file_file_size)
   end
+
+  def images
+    contents.where(file_type: "image")
+  end
+
+  def videos
+    contents.where(file_type: "video")
+  end
   
   protected
 

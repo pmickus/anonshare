@@ -77,7 +77,7 @@
     .btn.btn-primary.btn-file
       Add Files
       %input{id: "fileupload", type: "file", name: "content[file]", data: { url: "#{@folder.token}/contents" }, multiple: true} 
-    = link_to("Show All", "#{@folder.token}/carousel", data: {toggle: "modal", target: "#image-modal"}, class: "btn btn-default", remote: true)
+    = link_to("Show All Images", "#{@folder.token}/carousel", data: {toggle: "modal", target: "#image-modal"}, class: "btn btn-default", remote: true)
     = link_to("Download All", "#{@folder.token}/download_all.zip", class: "btn btn-success")
   
   #uploads

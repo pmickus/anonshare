@@ -3,10 +3,11 @@
 
 %div{class: "carousel slide", data: { ride: "carousel", interval: "false" }, id: "image-carousel"}
   .carousel-inner
-    - first = folder.contents.first
-    - folder.contents.each do |content|
-      .item{class: (first == content ? "active" : nil)}
-        = image_tag(content.file.url)
+    - active = true 
+    - folder.images.each do |image|
+      .item{class: (active ? "active" : nil)}
+        = image_tag(image.file.url, class: "img-responsive imageClip")
+        - active = false
   %a{class: "left carousel-control", href: "#image-carousel", data: {slide: "prev"}}    
     %span{class: "glyphicon glyphicon-chevron-left"}
 
