@@ -13,6 +13,4 @@
 /tmp
 
 #
-config/environments/production.rb
-config/database.yml
 public/*
