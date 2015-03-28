@@ -104,10 +104,6 @@
         dataType: 'json',
         done: function (e, data) {
           $('#uploads').append("<p>"+data.result.filename + " uploaded!</p>");
-          if (data.loaded == data.total) {
-            $('#uploads').append("<p>Upload Finished!</p>");
-            location.reload();  
-          }
         },
         fail: function (e, data) {
           $('#uploads').append(data.jqXHR.responseText);
@@ -119,6 +115,9 @@
               'width',
               progress + '%'
           );
+          if (data.loaded == data.total) {
+            location.reload();
+          }
         }
     });
   });
