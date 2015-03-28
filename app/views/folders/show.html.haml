@@ -1,0 +1,126 @@
+:css
+
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+  }
+
+  .carousel-inner > .item > img { margin: 0 auto; }
+  
+  @media screen and (min-width: 1px) and (max-width: 767px) {
+      #grid[data-columns]::before {
+          content: '2 .col-xs-6';
+      }
+   
+  }
+   
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+      #grid[data-columns]::before {
+          content: '3 .col-sm-4';
+      }
+   
+  }
+   
+  @media screen and (min-width: 992px) and (max-width: 9999px) {
+      #grid[data-columns]::before {
+          content: '4 .col-md-3';
+      }
+   
+  }   
+
+%p#notice= notice
+
+.container-fluid
+  .h1 
+    = @folder.name
+  %table.table.table-bordered.table-striped.table-condensed
+    %tr
+      %td 
+        Share Link:
+      %td
+        = link_to @folder.token 
+    %tr
+      %td 
+        Size:
+      %td
+        = (@folder.total_size.to_f / 1_000_000_000).to_f
+        GB  
+    %tr
+      %td 
+        Capacity:
+      %td 
+        = @folder.capacity
+        GB
+    %tr
+      %td 
+        Expires at:
+      %td 
+        = @folder.expires_at  
+ 
+  %p 
+    .btn.btn-primary.btn-file
+      Add Files
+      %input{id: "fileupload", type: "file", name: "content[file]", data: { url: "#{@folder.token}/contents" }, multiple: true} 
+    = link_to("Show All", "#{@folder.token}/carousel", data: {toggle: "modal", target: "#image-modal"}, class: "btn btn-default", remote: true)
+    = link_to("Download All", "#{@folder.token}/download_all.zip", class: "btn btn-success")
+  
+  #uploads
+
+  %div.progress{style: "display:none;"}
+    %div.progress-bar{style: "width=0%;", role: "progressbar", aria: { valuenow: "0", valuemin: "0", valuemax: "100"}}
+
+  %div{id: "grid", data: { columns: true }} 
+    - @folder.contents.each do |content|
+      .panel.panel-primary.item
+        .panel-body
+          = link_to(image_tag(content.file.url(:thumb)), folder_content_path(@folder, content))
+        .panel-footer
+          = link_to("#{content.comments.size} Comments", folder_content_comments_path(@folder, content))
+
+#image-modal.modal.fade   
+  .model-dialog
+    .modal-content
+      #folder-modal.modal-body 
+
+:javascript
+  $(function () {
+    $('#fileupload').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+          $('#uploads').append("<p>"+data.result.filename + " uploaded!</p>");
+          if (data.loaded == data.total) {
+            $('#uploads').append("<p>Upload Finished!</p>");
+            location.reload();  
+          }
+        },
+        fail: function (e, data) {
+          $('#uploads').append(data.jqXHR.responseText);
+        },
+        progressall: function (e, data) {
+          var progress = parseInt(data.loaded / data.total * 100, 10);
+          $(".progress").show();
+          $(".progress-bar").css(
+              'width',
+              progress + '%'
+          );
+        }
+    });
+  });
+
+= javascript_include_tag "salvattore"

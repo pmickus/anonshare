@@ -1,0 +1,26 @@
+%p#notice= notice
+%h1 Listing Folders
+%table
+  %thead
+    %tr
+      %th Token
+      %th Name
+      %th Filesize limit
+      %th Capacity
+      %th Duration
+      %th Expires at
+      %th{:colspan => "3"}
+  %tbody
+    - @folders.each do |folder|
+      %tr
+        %td= folder.token
+        %td= folder.name
+        %td= folder.filesize_limit
+        %td= folder.capacity
+        %td= folder.duration
+        %td= folder.expires_at
+        %td= link_to 'Show', folder
+        %td= link_to 'Edit', edit_folder_path(folder)
+        %td= link_to 'Destroy', folder, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Folder', new_folder_path

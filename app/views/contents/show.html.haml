@@ -1,0 +1,12 @@
+.container
+  - if @content.file_type == "video"
+    = video_tag(@content.file.url, controls: true, autobuffer: true)
+  - else 
+    = image_tag(@content.file.url)
+  %br/
+  = render "comments/comments", comments: @content.comments
+  = link_to 'New Comment', new_folder_content_comment_path(content_id: @content.id), class: 'btn btn-primary'
+  = link_to 'Back', folder_path(@content.folder), class: 'btn btn-default'
+
+  %br/
+  %br/

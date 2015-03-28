@@ -1,0 +1,15 @@
+= form_for(@content, url: folder_contents_path) do |f|
+  - if @content.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@content.errors.count, "error")
+        prohibited this content from being saved:
+      %ul
+        - @content.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :file
+    %br/
+    = f.file_field :file
+  .actions
+    = f.submit

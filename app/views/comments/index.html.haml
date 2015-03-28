@@ -1,0 +1,5 @@
+%p#notice= notice
+.container
+  = render "comments", comments: @comments
+  = link_to 'New Comment', new_folder_content_comment_path, class: 'btn btn-primary'
+  = link_to 'Back', folder_path(@content.folder), class: 'btn btn-default'

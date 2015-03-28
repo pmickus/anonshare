@@ -1,0 +1,14 @@
+%p#notice= notice
+%h1 Listing Contents
+%table
+  %thead
+    %tr
+      %th Type
+      %th Uploaded by
+      %th{:colspan => "3"}
+  %tbody
+    - @contents.each do |content|
+      %tr
+        %td= content.file_type
+        %td= content.uploaded_by
+%br/

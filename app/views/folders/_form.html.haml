@@ -1,0 +1,34 @@
+.col-xs-4
+  = form_for(@folder) do |f|
+    - if @folder.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@folder.errors.count, "error")
+          prohibited this folder from being saved:
+        %ul
+          - @folder.errors.full_messages.each do |message|
+            %li= message
+    .form-group
+      .field
+        = f.label :name
+        %br/
+        = f.text_field :name, class: "form-control"
+    .form-group
+      .field
+        = f.label :filesize_limit, 'File size limit in MB'
+        %br/
+        = f.select :filesize_limit, [5, 25, 50, 100, 500]
+    .form_-group
+      .field
+        = f.label :capacity, 'Total capacity of folder in GB'
+        %br/
+        = f.select :capacity, [1, 10, 25, 50, 100] 
+    .form-group
+      .field
+        = f.label :duration, 'Duration of folder in days'
+        %br/
+        = f.select :duration, [1, 7, 30, 365] 
+    .actions
+      = f.submit "Add", class: "btn btn-success"
+      = link_to 'Back', folders_path, class: 'btn btn-default'
+

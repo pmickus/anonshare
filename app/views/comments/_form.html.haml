@@ -1,0 +1,19 @@
+.col-xs-4
+  = form_for @comment, url: folder_content_comments_path do |f|
+    - if @comment.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
+        %ul
+          - @comment.errors.full_messages.each do |msg|
+            %li= msg
+    .form-group 
+      .field
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
+    .form-group
+      .field
+        = f.label :body
+        = f.text_area :body, class: 'form-control'
+    .actions
+      = f.submit 'Post', class: 'btn btn-default'
+      = link_to 'Back', folder_content_comments_path, class: 'btn btn-primary'
