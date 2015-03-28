@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: anonshare_production
-  username: anonshare
+  url: nonshare.ctuq5iyqi9vd.us-east-1.rds.amazonaws.com:5432
+  database: anonshare
+  username: ubuntu
   password: <%= ENV['ANONSHARE_DATABASE_PASSWORD'] %>
