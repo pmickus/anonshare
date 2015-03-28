@@ -115,9 +115,9 @@
               'width',
               progress + '%'
           );
-          if (data.loaded == data.total) {
-            location.reload();
-          }
+        },
+        stop: function (e, data) {
+          $('#uploads').append("<p>Upload Finished!</p>");
         }
     });
   });
