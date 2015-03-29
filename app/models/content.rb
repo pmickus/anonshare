@@ -1,5 +1,5 @@
 class Content < ActiveRecord::Base
-  has_attached_file :file, styles: { thumb: { :geometry => "200x200#", :format => 'png' }}, 
+  has_attached_file :file, styles: { thumb: { :geometry => "200x200>", :format => 'png' }}, 
                            processors: lambda { |a| a.video? ? [:ffmpeg] : [:thumbnail] }, 
                            default_url: "/images/:style/missing.png"
   

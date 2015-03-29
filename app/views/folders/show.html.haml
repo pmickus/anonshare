@@ -20,7 +20,7 @@
     cursor: inherit;
     display: block;
   }
-
+  
   .carousel-inner > .item > img { margin: 0 auto; }
   
   @media screen and (min-width: 1px) and (max-width: 767px) {
@@ -88,7 +88,7 @@
   %div{id: "grid", data: { columns: true }} 
     - @folder.contents.each do |content|
       .panel.panel-primary.item
-        .panel-body
+        .panel-body.text-center
           = link_to(image_tag(content.file.url(:thumb)), folder_content_path(@folder, content))
         .panel-footer
           = link_to("#{content.comments.size} Comments", folder_content_comments_path(@folder, content))
