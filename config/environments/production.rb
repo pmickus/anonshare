@@ -82,7 +82,7 @@ Rails.application.configure do
     :s3_credentials => {
       :bucket => ENV['S3_BUCKET']
      },
-    :s3_host_alias => 'content.anonshare.us',
+    :s3_host_alias => 'cdn.anonshare.us',
     :url => ':s3_alias_url',
     :path => ":class/:attachment/:id_partition/:style/:filename",
     :bucket => ENV['S3_BUCKET']
