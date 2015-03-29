@@ -1,7 +1,7 @@
 class Folder < ActiveRecord::Base
   include Tokenable
 
-  validates :filesize_limit, inclusion: { in: [5, 25, 50, 100, 500],
+  validates :filesize_limit, inclusion: { in: [5, 25, 50, 100, 500, 1000, 2000],
     message: "%{value} is not a valid size" }
 
   validates :capacity, inclusion: { in: [1, 10, 25, 50, 100],
