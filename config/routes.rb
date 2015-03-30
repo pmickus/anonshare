@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   end
   get "/folders/:token/carousel", to: "folders#carousel"
   get "/folders/:token/download_all", to: "folders#download_all"
+  get "/folders/:token/activity_log", to: "activity_logs#index"
 end

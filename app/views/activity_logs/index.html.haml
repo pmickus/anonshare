@@ -1,0 +1,5 @@
+.container
+  .list-group
+    - @logs.each do |log|
+      .list-group-item
+        = show_log(log)

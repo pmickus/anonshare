@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326224148) do
+ActiveRecord::Schema.define(version: 20150330125332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activity_logs", force: :cascade do |t|
+    t.integer "folder_id"
+    t.string  "model_type"
+    t.integer "model_id"
+    t.string  "action"
+  end
+
+  add_index "activity_logs", ["folder_id"], name: "index_activity_logs_on_folder_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.string   "name"

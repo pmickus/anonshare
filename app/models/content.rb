@@ -1,4 +1,6 @@
 class Content < ActiveRecord::Base
+  include Wisper::Publisher
+
   has_attached_file :file, styles: { thumb: { :geometry => "200x200>", :format => 'png' }}, 
                            processors: lambda { |a| a.video? ? [:ffmpeg] : [:thumbnail] }, 
                            default_url: "/images/:style/missing.png"
@@ -12,6 +14,7 @@ class Content < ActiveRecord::Base
   belongs_to :folder
 
   before_validation :set_file_type
+  after_commit :publish_creation_successful, on: :create
  
   def video?
     self.file_content_type.include?("video")
@@ -29,6 +32,10 @@ class Content < ActiveRecord::Base
     end
   end
 
+  def hidden_ip
+    uploaded_by.split(".")[0..2].join(".") + ".xxx" 
+  end
+
   protected
 
   def set_file_type
@@ -38,5 +45,10 @@ class Content < ActiveRecord::Base
       self.file_type = "video"
     end
   end
- 
+
+  private
+
+  def publish_creation_successful
+    broadcast(:content_creation_succesful, self.id)
+  end
 end

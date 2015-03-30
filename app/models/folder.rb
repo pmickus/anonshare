@@ -16,6 +16,7 @@ class Folder < ActiveRecord::Base
   validates :filesize_limit, :capacity, :duration, :name, presence: true
  
   has_many :contents
+  has_many :activity_logs, class_name: "ActivityLog"
 
   before_create :set_expires_at
 

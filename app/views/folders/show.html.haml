@@ -79,6 +79,7 @@
       %input{id: "fileupload", type: "file", name: "content[file]", data: { url: "#{@folder.token}/contents" }, multiple: true} 
     = link_to("Show All Images", "#{@folder.token}/carousel", data: {toggle: "modal", target: "#image-modal"}, class: "btn btn-default", remote: true)
     = link_to("Download All", "#{@folder.token}/download_all.zip", class: "btn btn-success")
+    = link_to("Activity Log", "#{@folder.token}/activity_log", class: "btn btn-info")
   
   #uploads
 
