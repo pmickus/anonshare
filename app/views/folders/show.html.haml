@@ -86,13 +86,14 @@
   %div.progress{style: "display:none;"}
     %div.progress-bar{style: "width=0%;", role: "progressbar", aria: { valuenow: "0", valuemin: "0", valuemax: "100"}}
 
-  %div{id: "grid", data: { columns: true }} 
-    - @folder.contents.each do |content|
-      .panel.panel-primary.item
-        .panel-body.text-center
-          = link_to(image_tag(content.file.url(:thumb)), folder_content_path(@folder, content))
-        .panel-footer
-          = link_to("#{content.comments.size} Comments", folder_content_comments_path(@folder, content))
+  - cache(@folder.cache_key) do
+    %div{id: "grid", data: { columns: true }} 
+      - @folder.contents.each do |content|
+        .panel.panel-primary.item
+          .panel-body.text-center
+            = link_to(image_tag(content.file.url(:thumb)), folder_content_path(@folder, content))
+          .panel-footer
+            = link_to("#{content.comments.size} Comments", folder_content_comments_path(@folder, content))
 
 #image-modal.modal.fade   
   .model-dialog
