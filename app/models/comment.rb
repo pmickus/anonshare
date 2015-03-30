@@ -6,6 +6,7 @@ class Comment < ActiveRecord::Base
 
   after_commit :publish_creation_successful, on: :create
 
+  default_scope { order('created_at DESC') }
 
   private
 

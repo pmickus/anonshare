@@ -15,6 +15,8 @@ class Content < ActiveRecord::Base
 
   before_validation :set_file_type
   after_commit :publish_creation_successful, on: :create
+
+  default_scope { order('created_at DESC') }
  
   def video?
     self.file_content_type.include?("video")

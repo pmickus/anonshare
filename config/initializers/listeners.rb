@@ -1,1 +1,1 @@
-Wisper.subscribe(ActivityLog.new, scope: [:Content, :Comment])
+Wisper.subscribe(ActivityLogListener.new, scope: [:Content, :Comment])
