@@ -5,6 +5,8 @@ class CreateActivityLogs < ActiveRecord::Migration
       t.string :model_type
       t.integer :model_id
       t.string :action
+
+      t.timestamps null: false
     end
 
     add_index :activity_logs, :folder_id

@@ -4,6 +4,12 @@ class ActivityLog < ActiveRecord::Base
 
   belongs_to :folder
 
+  default_scope { order('created_at DESC') }
+
+  def item
+    @item ||= self.model_type.capitalize.constantize.find(self.model_id)
+  end
+
   def content_creation_succesful(content_id)
     log = ActivityLog.new
     content = Content.find(content_id)
@@ -24,7 +30,4 @@ class ActivityLog < ActiveRecord::Base
     log.save!
   end
     
-  def item
-    @item ||= self.model_type.capitalize.constantize.find(self.model_id)
-  end
 end

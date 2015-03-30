@@ -17,10 +17,12 @@ ActiveRecord::Schema.define(version: 20150330125332) do
   enable_extension "plpgsql"
 
   create_table "activity_logs", force: :cascade do |t|
-    t.integer "folder_id"
-    t.string  "model_type"
-    t.integer "model_id"
-    t.string  "action"
+    t.integer  "folder_id"
+    t.string   "model_type"
+    t.integer  "model_id"
+    t.string   "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "activity_logs", ["folder_id"], name: "index_activity_logs_on_folder_id", using: :btree
