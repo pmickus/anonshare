@@ -8,6 +8,8 @@ class Comment < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
+  Comment.subscribe(ActivityLogListener.new)
+
   private
 
   def publish_creation_successful

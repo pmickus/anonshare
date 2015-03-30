@@ -17,6 +17,8 @@ class Content < ActiveRecord::Base
   after_commit :publish_creation_successful, on: :create
 
   default_scope { order('created_at DESC') }
+
+  Content.subscribe(ActivityLogListener.new)
  
   def video?
     self.file_content_type.include?("video")

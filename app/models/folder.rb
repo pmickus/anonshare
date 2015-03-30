@@ -21,6 +21,10 @@ class Folder < ActiveRecord::Base
 
   before_create :set_expires_at
 
+  def cache_key
+    "#{self.id}_#{self.updated_at.to_s}_#{self.contents.first.id}_#{self.comments.first.id}"
+  end
+
   def to_param
     token
   end
