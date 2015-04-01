@@ -6,10 +6,8 @@
     - active = true 
     - folder.images.each do |image|
       .item{class: (active ? "active" : nil)}
-        .embed-responsive-item
-          .text-center
-            = image_tag(image.file.url)
-            - active = false
+        = image_tag(image.file.url)
+        - active = false
   %a{class: "left carousel-control", href: "#image-carousel", data: {slide: "prev"}}    
     %span{class: "glyphicon glyphicon-chevron-left"}
 
