@@ -24,18 +24,6 @@ class Content < ActiveRecord::Base
     self.file_content_type.include?("video")
   end
 
-  def file_size_constraints  
-    if file_file_size > folder.filesize_limit.megabytes 
-      errors.add(:file, "size exceeds folder limits.")
-    end 
-  end
-  
-  def folder_size_constraints
-    if (file_file_size + folder.total_size)  > folder.capacity.gigabytes
-      errors.add(:file, "exceeds folder capacity limit.")
-    end
-  end
-
   def hidden_ip
     uploaded_by.split(".")[0..2].join(".") + ".xxx" 
   end
@@ -43,6 +31,11 @@ class Content < ActiveRecord::Base
   protected
 
   def set_file_type
+    if file_content_type.nil?
+      self.file_type = ""
+      return
+    end
+
     if file_content_type.include?("image")
       self.file_type = "image"
     elsif file_content_type.include?("video")
@@ -52,6 +45,26 @@ class Content < ActiveRecord::Base
 
   private
 
+  def file_size_constraints 
+    if file_file_size.nil? 
+      return
+    end
+  
+    if file_file_size > folder.filesize_limit.megabytes 
+      errors.add(:file, "size exceeds folder limits.")
+    end 
+  end
+  
+  def folder_size_constraints
+    if file_file_size.nil?
+      return
+    end
+
+    if (file_file_size + folder.total_size)  > folder.capacity.gigabytes
+      errors.add(:file, "exceeds folder capacity limit.")
+    end
+  end
+ 
   def publish_creation_successful
     broadcast(:content_creation_succesful, self.id)
   end
